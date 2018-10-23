@@ -16,6 +16,10 @@ CommandLineArguments ParseCommandLine(int32_t argc, char **argv) {
     if (std::string("--graph_filename") == argv[i] && (i + 1 < argc)) {
       parsed_arguments.graph_filename = argv[i + 1];
     }
+
+    if (std::string("--save_solutions") == argv[i]) {
+      parsed_arguments.save_solutions = true;
+    }
   }
 
   return parsed_arguments;

@@ -17,6 +17,8 @@ Run as
 The parameter ```--max_cliques d``` regulates early stopping of the algorithm.
 When ```d``` is non-negative, the algorithm automatically stops when ```d``` cliques have been found.
 Negative values mean no upper bound (default).
+
+If you want to save (and output) all the cliques, add ```--save_solutions```.
 #### Input
 The graph file is a simple .txt (specified by ```--graph_filename```) of the following form:
 ```
@@ -36,7 +38,12 @@ Note that only the weights for ```i>j``` will be used.
 A connection between two vertices from the same partition will results in an error.
 
 #### Output
-Prints the number of k-cliques.
+Prints the number of k-cliques. If ```--save_solutions``` is specified,
+the following lines contain each clique in the format
+```
+x1 x2 ... xk
+```
+with ```xi``` being the global index of the vertex in partition ```i```.
 
 ## Note on other algorithms
 I've found only one more algorithm that solves exactly this problem.

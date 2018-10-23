@@ -18,7 +18,8 @@ int main(int32_t argc, char **argv) {
   PartiteBinaryGraph graph = ReadGraph(input_file);
   input_file.close();
 
-  PartiteGraphVisitor visitor(graph, false, command_line_arguments.n_solution_to_stop);
+  PartiteGraphVisitor visitor(graph, command_line_arguments.save_solutions,
+      command_line_arguments.n_solution_to_stop);
   FindMaximumCliques(graph, &visitor);
   PrintMaxCliqueSolution(visitor);
 

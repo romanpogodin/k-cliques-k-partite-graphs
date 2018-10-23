@@ -13,11 +13,15 @@
 
 struct CommandLineArguments {
   explicit CommandLineArguments(int32_t n_solutions_to_stop = -1,
-      std::string graph_filename = "./input.txt")
-      : n_solution_to_stop(n_solutions_to_stop), graph_filename(std::move(graph_filename)) {};
+                                std::string graph_filename = "./input.txt",
+                                bool save_solutions = false)
+      : n_solution_to_stop(n_solutions_to_stop),
+        graph_filename(std::move(graph_filename)),
+        save_solutions(save_solutions) {};
 
   int32_t n_solution_to_stop;
   std::string graph_filename;
+  bool save_solutions;
 };
 
 CommandLineArguments ParseCommandLine(int32_t argc, char **argv);
