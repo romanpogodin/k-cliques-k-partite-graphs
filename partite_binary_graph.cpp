@@ -52,10 +52,12 @@ void FindMaximumCliques(const PartiteBinaryGraph &graph, PartiteGraphVisitor *vi
   std::vector<int32_t> solution(n_partitions);
 
   std::vector<std::vector<int32_t>> compatible_solutions(n_partitions);
+  std::vector<std::vector<int32_t>> stable_solutions(n_partitions);
   std::vector<std::vector<int32_t>> erased_solutions(n_partitions);
 
   for (int32_t partition = 0; partition < n_partitions; ++partition) {
     compatible_solutions[partition].reserve(static_cast<uint32_t>(partition_sizes[partition]));
+    stable_solutions[partition].reserve(static_cast<uint32_t>(partition_sizes[partition]));
     erased_solutions[partition].reserve(n_vertices);
   }
 
@@ -69,7 +71,7 @@ void FindMaximumCliques(const PartiteBinaryGraph &graph, PartiteGraphVisitor *vi
   std::vector<int32_t> saved_vertices;
   saved_vertices.reserve(static_cast<uint32_t>(graph.GetMaxPartitionSize()));
   FindSingleMaximumClique(0, min_size_partition, graph, visitor,
-      &solution, &compatible_solutions, &erased_solutions, &saved_vertices);
+      &solution, &compatible_solutions, &erased_solutions, &saved_vertices, &stable_solutions);
 }
 
 void EraseIncompatibleVertices(const PartiteBinaryGraph &graph,
@@ -136,10 +138,12 @@ void FindSingleMaximumClique(int32_t level, int32_t partition,
                              std::vector<int32_t> *solution,
                              std::vector<std::vector<int32_t>> *compatible_solutions,
                              std::vector<std::vector<int32_t>> *erased_solutions,
-                             std::vector<int32_t> *saved_vertices) {
-  const auto stable_compatible_partition = (*compatible_solutions)[partition];
+                             std::vector<int32_t> *saved_vertices,
+                             std::vector<std::vector<int32_t>> *stable_solutions) {
+//  const auto stable_compatible_partition = (*compatible_solutions)[partition];
+  (*stable_solutions)[partition] = (*compatible_solutions)[partition];
 
-  for (const auto &vertex : stable_compatible_partition) {
+  for (const auto &vertex : (*stable_solutions)[partition]) {
     int32_t new_empty_partitions = 0;
 
     // forward loop
@@ -165,7 +169,7 @@ void FindSingleMaximumClique(int32_t level, int32_t partition,
         int32_t next_partition = FindNextPartition(graph, compatible_solutions);
 
         FindSingleMaximumClique(level + 1, next_partition, graph, visitor, solution,
-            compatible_solutions, erased_solutions, saved_vertices);
+            compatible_solutions, erased_solutions, saved_vertices, stable_solutions);
 
         if (visitor->StopSearching()) {
           return;  // break the loop

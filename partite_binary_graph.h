@@ -73,7 +73,8 @@ void FindSingleMaximumClique(int32_t level, int32_t partition,
                              std::vector<int32_t> *solution,
                              std::vector<std::vector<int32_t>> *compatible_solutions,
                              std::vector<std::vector<int32_t>> *erased_solutions,
-                             std::vector<int32_t> *saved_vertices);
+                             std::vector<int32_t> *saved_vertices,
+                             std::vector<std::vector<int32_t>> *stable_solutions);
 
 void FindMaximumCliques(const PartiteBinaryGraph &graph, PartiteGraphVisitor *visitor);
 
