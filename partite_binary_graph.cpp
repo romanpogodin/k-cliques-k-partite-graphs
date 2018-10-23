@@ -100,7 +100,7 @@ void EraseIncompatibleVertices(const PartiteBinaryGraph &graph,
 }
 
 int32_t FindNextPartition(const PartiteBinaryGraph &graph,
-    std::vector<std::vector<int32_t>> *compatible_solutions) {
+                          std::vector<std::vector<int32_t>> *compatible_solutions) {
   int32_t next_partition_size = graph.GetNumberOfVertices() + 1;
   int32_t next_partition = -1;
 
@@ -140,7 +140,6 @@ void FindSingleMaximumClique(int32_t level, int32_t partition,
                              std::vector<std::vector<int32_t>> *erased_solutions,
                              std::vector<int32_t> *saved_vertices,
                              std::vector<std::vector<int32_t>> *stable_solutions) {
-//  const auto stable_compatible_partition = (*compatible_solutions)[partition];
   (*stable_solutions)[partition] = (*compatible_solutions)[partition];
 
   for (const auto &vertex : (*stable_solutions)[partition]) {
