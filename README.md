@@ -18,7 +18,7 @@ The parameter ```--max_cliques d``` regulates early stopping of the algorithm.
 When ```d``` is non-negative, the algorithm automatically stops when ```d``` cliques have been found.
 Negative values mean no upper bound (default).
 
-If you want to save (and output) all the cliques, add ```--save_solutions```.
+If you want to save (and print) all the cliques, add ```--save_solutions```.
 #### Input
 The graph file is a simple .txt (specified by ```--graph_filename```) of the following form:
 ```
